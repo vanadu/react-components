@@ -10,7 +10,7 @@ export function Slideshow({ children, className, style }) {
     activated: false,
     count: 0,
   })
-  const delay = 2000
+  const delay = 1000
 
   // !VA Set a ref to the timer object. We need the ref to refer to the timer in order to clearTimeout and setTimeout
   const timer = useRef(null)
@@ -41,6 +41,7 @@ export function Slideshow({ children, className, style }) {
 
   // !VA Render the div containing the slide image, which is passed in from the SlideshowItem component in the children prop. I neeed to refresh my memory on the value of the provider and how that fits in with the value prop.N
   // !VA NOTE height and width should be set in the CSS/SCSS for responsive projects.
+
   return (
     <SlideshowContext.Provider value={[context, setContext]}>
       <div

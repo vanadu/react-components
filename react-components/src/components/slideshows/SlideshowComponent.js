@@ -15,8 +15,8 @@ export default function SlideshowComponent() {
   // !VA Render the Slideshow container component, map over the images array and render SlideshowItems for each image. Slideshow and SlideshowItem components are both in the Slideshow.js file.
   return (
     <>
-      <div className='basis-3/4 flex-column flex-center'>
-        <Slideshow width={100} height={100}>
+      <div className='basis-3/4 flex-column flex-center slideshow-box'>
+        <Slideshow width={100} height={100} imagedata={imagedata}>
           {
             images.map((image, i) => {
               return (
@@ -47,6 +47,6 @@ function SlideshowImage( {img, alt} ) {
   // })
 
   return (
-        <img src={img} alt={alt}></img>
+      <img className='blob' src={img} alt={alt}></img>
     )
 }

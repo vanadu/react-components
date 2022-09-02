@@ -1,3 +1,5 @@
+// !VA Slideshow2Component and Slideshow2 will: 1) Slide the container up from the top instead of the right 2) Slide 2 images at a time, whereby the second image in the slide action will always be the same: an arrow indicating a dependency. The purpose is to have the composer of a song at the beginning and all the people who recorded it in the subsequent slides. It also should have a start button.
+
 // import { useState, useEffect } from 'react'
 import { Slideshow, SlideshowItem } from './Slideshow'
 import './Slideshow.css'
