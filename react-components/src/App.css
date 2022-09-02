@@ -1,0 +1,36 @@
+.App {
+  width: 1200px;
+  display: block;
+  margin: 0 auto;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.scrollintoview-landing {
+  display: block;
+  /* width: 100%; */
+  height: 100vh;
+  background: #675fd4;
+}
+
+.scrollintoview-about {
+  display: block;
+  /* width: 100%; */
+  height: 100vh;
+  background: #54c3d6;
+}
+
+

@@ -1,0 +1,16 @@
+{
+  "images": [
+    {
+      "caption": "Image 1",
+      "url": "https://staging.crossandhigh.com/images/chicago_albums/chicago-1.jpg"
+    },
+    {
+      "caption": "Image 2",
+      "url": "https://staging.crossandhigh.com/images/chicago_albums/chicago-2.jpg"
+    },
+    {
+      "caption": "Image 1",
+      "url": "https://staging.crossandhigh.com/images/chicago_albums/chicago-3.jpg"
+    }
+  ]
+}

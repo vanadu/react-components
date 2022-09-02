@@ -1,0 +1,16 @@
+/* !VA Remember that it's not necessary to put a height/width on the img element. It's not being resized, and will display at 100% height and width by default. */
+
+/* !VA remember that the height and width properties fix the dimensions of the container during the slide action. If not set, the container will resize from the top right corner instead of sliding in. */
+.slideshow-container {
+  overflow: auto;
+  position: relative;
+  height: 600px;
+  width: 600px;
+}
+
+.slideshow-slide {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
