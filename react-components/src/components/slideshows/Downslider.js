@@ -9,9 +9,6 @@ export function Downslider({ children }) {
   // !VA DO NOT FORGET THAT IF YOUR CONTEXT INCLUDES A USESTATE, YOU HAVE TO EXTRACT BOTH THE VARIABLE AND THE SETTER FROM THE CONTEXT!!!!!
   const [context, setContext] = useContext(DownsliderContext)
 
-  console.log('context :>> ')
-  console.log(context.play, context.stop)
-
   const delay = 2000
 
   // !VA Set a ref to the timer object. We need the ref to refer to the timer in order to clearTimeout and setTimeout

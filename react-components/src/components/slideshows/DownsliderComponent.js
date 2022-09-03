@@ -13,7 +13,7 @@ import { useState } from 'react'
 import { Downslider, DownsliderItem } from './Downslider'
 import './Downslider.css'
 import Navbar from '../Navbar'
-import { FaCaretDown, FaPlay, FaStop } from 'react-icons/fa'
+import { FaPlay, FaPause, FaStop } from 'react-icons/fa'
 
 import imagedata from '../../data/DeltaBluesAlbumImages.json'
 
@@ -28,7 +28,7 @@ export default function DownsliderComponent() {
     items: [],
     activated: false,
     count: 0,
-    play: false,
+    play: true,
     stop: false,
     init: true
   })
@@ -43,8 +43,8 @@ export default function DownsliderComponent() {
 
   const handlePlay = () => {
     console.log('handlePlay running');
-    // setAutoplay(!autoplay)
-    setContext( {...context, play: true, stop: false } )
+    let play = !context.play;
+    setContext( {...context, play: play, stop: false } )
   }
 
   const handleStop = () => {
@@ -76,17 +76,34 @@ export default function DownsliderComponent() {
             }
           </Downslider>
           <div className="downslider-controls-container">
-            <div 
-              className="downslider-controls-play downslider-controls"
-              onClick={handlePlay}
-              >
-              <div className="downslider-controls-label">
-                <p>Play</p>
+            {context.play && (
+              <div 
+                className="downslider-controls-play downslider-controls"
+                onClick={handlePlay}
+                >
+                <div className="downslider-controls-label">
+                  <p>Play</p>
+                </div>
+                <div className="downslider-controls-icon">
+                  <FaPlay />
+                </div>
               </div>
-              <div className="downslider-controls-icon">
-                <FaPlay />
+            )
+            }
+            {!context.play && (
+              <div 
+                className="downslider-controls-pause downslider-controls"
+                onClick={handlePlay}
+                >
+                <div className="downslider-controls-label">
+                  <p>Pause</p>
+                </div>
+                <div className="downslider-controls-icon">
+                  <FaPause />
+                </div>
               </div>
-            </div>
+            )
+            }
             <div className="downslider-controls-stop downslider-controls">
               <div className="downslider-controls-label">
                 <p>Stop</p>
