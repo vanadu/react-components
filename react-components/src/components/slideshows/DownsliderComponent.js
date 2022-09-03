@@ -29,7 +29,8 @@ export default function DownsliderComponent() {
     activated: false,
     count: 0,
     play: false,
-    stop: false
+    stop: false,
+    init: true
   })
 
 
