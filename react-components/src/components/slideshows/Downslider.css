@@ -1,0 +1,111 @@
+/* !VA Remember that it's not necessary to put a height/width on the img element. It's not being resized, and will display at 100% height and width by default. */
+
+/* !VA remember that the height and width properties fix the dimensions of the container during the slide action. If not set, the container will resize from the top right corner instead of sliding in. */
+
+/* !VA 
+
+Element hierarchy:
+-------------------
+div.downslider-image-container
+  div.downslider-content
+    img.downslider-image
+
+div.downslider-caption-container
+  div.downslider-content
+    div.downslider-caption
+      p.downslider-caption-text
+
+*/
+
+.downslider-box {
+  height: 680px;
+}
+
+/* Slide Image */
+.downslider-image-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 560px;
+  width: 500px;
+  overflow: hidden;
+  background-color: red;
+  overflow: hidden;
+}
+
+.downslider-image-container .downslider-content {
+  height: 560px;
+  width: 500px;
+}
+
+/* Slide Caption */
+.downslider-caption-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 60px;
+}
+
+.downslider-caption-container .downslider-content {
+  color: white;
+  height: auto;
+  width: 100%;
+}
+
+.downslider-caption-container .downslider-content .downslider-caption {
+  width: 100%;
+  height: auto;
+}
+
+.downslider-caption-text {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 0 ;
+  overflow: auto;
+  background: black;
+  color: white;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  text-align: center;
+}
+
+.downslider-down-button-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  height: 100px;
+  padding: 20px;
+}
+
+.downslider-down-button-text {
+  position: absolute;
+  top: 20px;
+  text-transform: uppercase;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  width: 250px;
+  height: 250px;
+  padding-top: 40px;
+}
+
+
+.downslider-down-button {
+    border-left: 250px solid transparent;
+    border-right: 250px solid transparent;
+    border-bottom: 250px solid transparent;
+    border-top: 250px solid blue;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+  

@@ -6,6 +6,7 @@ import ReadMoreDemo from './ReadMoreDemo'
 import ScrollIntoView from './ScrollIntoView'
 import Slideshow from './slideshows/SlideshowComponent'
 import Slideshow2 from './slideshows/Slideshow2Component'
+import DownsliderComponent from './slideshows/DownsliderComponent'
 
 //prettier-ignore
 const Navbar = () => {
@@ -32,6 +33,9 @@ const Navbar = () => {
             </li>
             <li>
               <Link to="/slideshow2">Slideshow2</Link>
+            </li>
+            <li>
+              <Link to="/downslider">Downslider</Link>
             </li>
             {/* <li>
               <Link to="/test">Test</Link>
