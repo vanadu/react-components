@@ -84,6 +84,37 @@ div.downslider-caption-container
   padding: 20px;
 }
 
+.downslider-controls-container {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 500px;
+  height: 100px;
+  padding: 20px;
+  border: 1px solid blue;
+}
+
+.downslider-controls {
+  display: flex;
+  justify-content: space-evenly;
+  width: 110px;
+  cursor: pointer;
+}
+
+.downslider-controls p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1.25rem;
+}
+
+.downslider-controls-icon {
+  /* padding-top: .25rem; */
+  font-size: 1.5rem;
+}
+
+
 .downslider-down-button-text {
   position: absolute;
   top: 20px;
@@ -105,7 +136,7 @@ div.downslider-caption-container
     border-top: 250px solid blue;
     display: inline-block;
     cursor: pointer;
-}
+} 
 
 
   

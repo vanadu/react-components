@@ -1,15 +1,17 @@
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useContext } from 'react'
+import { DownsliderContext } from '../../context/DownsliderContext'
 
-// !VA Create the context
-const DownsliderContext = createContext()
+// !VA Extract the context from the import
 
-export function Downslider({ children, autoplay }) {
+export function Downslider({ children }) {
   // !VA Set the context, i.e. the POS which will be used throughout the component and its dependencies. Items is the array of items, activated is the boolean trigger. If activated is true, move the slide in. If it is false, move the slide out
-  const [context, setContext] = useState({
-    items: [],
-    activated: false,
-    count: 0,
-  })
+
+  // !VA DO NOT FORGET THAT IF YOUR CONTEXT INCLUDES A USESTATE, YOU HAVE TO EXTRACT BOTH THE VARIABLE AND THE SETTER FROM THE CONTEXT!!!!!
+  const [context, setContext] = useContext(DownsliderContext)
+
+  console.log('context :>> ')
+  console.log(context.play, context.stop)
+
   const delay = 2000
 
   // !VA Set a ref to the timer object. We need the ref to refer to the timer in order to clearTimeout and setTimeout
@@ -23,25 +25,36 @@ export function Downslider({ children, autoplay }) {
         const head = context.items.shift()
         // !VA Push the next item in the array - shift and push cycles through the array
         context.items.push(head)
-        // console.log('context.items :>> ')
-        // console.log(context.items)
       }
       // !VA Toggle the context.activated POS
       context.activated = !context.activated
       // !VA Write the current context, i.e. the items array and the toggle state of the activated property the context POS
+      // !VA HERE
       setContext({ ...context })
     }, delay)
     // !VA return the function that resets the timer ref
     return () => clearTimeout(timer.current)
   })
 
+  useEffect(() => {
+    console.log('Component mounted')
+    // const { alt } = children[0].props.children[0].props
+    // const { img } = children[0].props.children[0].props
+    // console.log('alt, img :>> ')
+    // console.log(alt, img)
+    const initialChild = children.slice(0, 1)
+    // console.log('initialChild :>> ')
+    // console.log(initialChild)
+    // console.log('children :>> ')
+    // console.log(children)
+  }, [])
+
   // !VA Log the context items and their activated property
   // console.log(context.items)
   // console.log(context.activated)
 
-  // !VA Render the div containing the slide image, which is passed in from the DownsliderItem component in the children prop. I neeed to refresh my memory on the value of the provider and how that fits in with the value prop.
   // !VA NOTE height and width should be set in the CSS/SCSS for responsive projects.
-  // !VA classname is passed in from
+  // !VA IMPORTANT: This component only renders once. 'children' contains the array of DownsliderItem components passed in from DownsliderComponent component.
   return (
     <DownsliderContext.Provider value={[context, setContext]}>
       <div
@@ -52,6 +65,7 @@ export function Downslider({ children, autoplay }) {
           position: 'relative',
           overflow: 'hidden',
         }}>
+        {/* {init ? initialChild : children} */}
         {children}
       </div>
     </DownsliderContext.Provider>
@@ -59,6 +73,7 @@ export function Downslider({ children, autoplay }) {
 }
 
 // !VA This component gets all the Downslider items, assigns a unique name to them, and passes that name in the children prop every time the component is mounted.
+// !VA 'children' here is a single DownsliderItem with the data for a single item in the json data array.
 export function DownsliderItem({ children, autoplay }) {
   // !VA Generate a unique name for the slide and assign it to a ref. This uses the Javasscript performance.now method to generate what _should_ be a unique number value, since it takes the performance of the current function to the millisecond and then tacks on a random onto it - that is a very long number.
   const name = useRef(`${performance.now()}_${Math.random()}`)
@@ -67,23 +82,21 @@ export function DownsliderItem({ children, autoplay }) {
   // !VA Set the POS for the ready state for sliding in the next slide
   const [stage, setStage] = useState('ready')
 
-  console.log('autoplay :>> ')
-  console.log(autoplay)
+  const [counter, setCounter] = useState(0)
 
-  // !VA Run this once when the component is mounted. Here we populate the context.items POS with the unique name of the Downslider items when the component mounts, and remove them again when the component unmounts.
+  // !VA Run this once when the component is mounted. Here we populate the context.items POS with the unique name of the Downslider items when the component mounts, and remove them again when the component unmounts. THIS ONLY RUNS ONCE!!!!! It only runs once to populate the initial context.items array, which has SIX items, i.e. the unique name from name above for each data item. TWICE. The second 3 are duplicates.
   useEffect(() => {
-    if (autoplay === true) {
-      context.items.push(name.current)
+    // if (autoplay === true) {
+    context.items.push(name.current)
 
-      return () => {
-        // !VA Here we are de-populating the context.items array, removing the unique names one by run each time the component is mounted.
-        const index = context.items.indexOf(name.current)
-        context.items.splice(index, 1)
-      }
+    return () => {
+      // !VA Here we are de-populating the context.items array, removing the unique names one by run each time the component is unmounted.
+      const index = context.items.indexOf(name.current)
     }
-  }, [context.items, autoplay])
+    // }
+  }, [context.items])
 
-  // !VA This runs every time the context POS changes, so it will run once for EACH item in the context POS. This is where we determine which slides to move.
+  // !VA This runs every time the context POS changes. What that means is that each time the useEffect above runs and an item in the context array is changed, this useEffect runs also. I think...so it will run once for EACH item in the context POS. This is where we determine which slides to move.
   useEffect(() => {
     // !VA Set activeName to the unique name of the first element in the items array.
     const activeName = context.items[0]
