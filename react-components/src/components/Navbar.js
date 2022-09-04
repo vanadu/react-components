@@ -7,6 +7,7 @@ import ScrollIntoView from './ScrollIntoView'
 import Slideshow from './slideshows/SlideshowComponent'
 import Slideshow2 from './slideshows/Slideshow2Component'
 import DownsliderComponent from './slideshows/DownsliderComponent'
+import Test from './Test'
 
 //prettier-ignore
 const Navbar = () => {
@@ -37,9 +38,9 @@ const Navbar = () => {
             <li>
               <Link to="/downslider">Downslider</Link>
             </li>
-            {/* <li>
+            <li>
               <Link to="/test">Test</Link>
-            </li> */}
+            </li>
           </ul>
         </nav>
       </aside>

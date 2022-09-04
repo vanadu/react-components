@@ -8,7 +8,7 @@ import ScrollIntoView from './components/ScrollIntoView'
 import SlideshowComponent from './components/slideshows/SlideshowComponent'
 import Slideshow2Component from './components/slideshows/Slideshow2Component'
 import DownsliderComponent from './components/slideshows/DownsliderComponent'
-// import Test from './components/Test'
+import Test from './components/Test'
 
 import './App.css'
 // import ReadMoreDemo from './components/ReadMoreDemo'
@@ -33,7 +33,7 @@ function App() {
             <Route path='/slideshow' element={<SlideshowComponent />} /> 
             <Route path='/slideshow2' element={<Slideshow2Component />} /> 
             <Route path='/downslider' element={<DownsliderComponent />} /> 
-            {/* <Route path='/test' element={<Test />} />  */}
+            <Route path='/test' element={<Test />} /> 
           </Routes>
         </BrowserRouter>
       </div>
