@@ -1,0 +1,29 @@
+{
+  "images": [
+    {
+      "title": "Robert Johnson",
+      "description": "Robert Johnson was a great musician",
+      "urls": "https://staging.crossandhigh.com/images/deltablues_albums/RobertJohnson.jpg"
+    },
+    {
+      "description": "Charley Patton is hard to listen to",
+      "title": "Charley Patton",
+      "urls": "https://staging.crossandhigh.com/images/deltablues_albums/CharleyPatton.jpg"
+    },
+    {
+      "title": "Bukka White",
+      "description": "Bukka White was a legend in his time",
+      "urls": "https://staging.crossandhigh.com/images/deltablues_albums/BukkaWhite.jpg"
+    },
+    {
+      "title": "Son House",
+      "description": "Son House has a great name ",
+      "urls": "https://staging.crossandhigh.com/images/deltablues_albums/SonHouse.jpg"
+    },
+    {
+      "title": "Skip James",
+      "description": "Skip James has a not so good name",
+      "urls": "https://staging.crossandhigh.com/images/deltablues_albums/SkipJames.jpg"
+    }
+  ]
+}

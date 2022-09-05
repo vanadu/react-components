@@ -9,6 +9,7 @@ import Slideshow1Component from './components/slideshows/slideshow1/Slideshow1Co
 import Slideshow2Component from './components/slideshows/slideshow2/Slideshow2Component'
 import Slideshow3 from './components/slideshows/slideshow3/Slideshow3'
 import Downslider1Component from './components/slideshows/downslider1/Downslider1Component'
+import Downslider2 from './components/slideshows/downslider2/Downslider2'
 import Test from './components/Test'
 
 import './App.css'
@@ -35,6 +36,7 @@ function App() {
             <Route path='/slideshow2' element={<Slideshow2Component />} /> 
             <Route path='/slideshow3' element={<Slideshow3 />} /> 
             <Route path='/downslider1' element={<Downslider1Component />} /> 
+            <Route path='/downslider2' element={<Downslider2 />} /> 
             <Route path='/test' element={<Test />} /> 
           </Routes>
         </BrowserRouter>

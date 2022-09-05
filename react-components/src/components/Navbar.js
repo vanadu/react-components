@@ -8,6 +8,7 @@ import Slideshow from './slideshows/slideshow1/Slideshow1Component'
 import Slideshow2 from './slideshows/slideshow2/Slideshow2Component'
 import Slideshow3 from './slideshows/slideshow3/Slideshow3'
 import Downslider1Component from './slideshows/downslider1/Downslider1Component'
+import Downslider2 from './slideshows/downslider2/Downslider2'
 import Test from './Test'
 
 //prettier-ignore
@@ -40,7 +41,10 @@ const Navbar = () => {
               <Link to="/slideshow3">Slideshow3</Link>
             </li>
             <li>
-              <Link to="/downslider1">Downslider</Link>
+              <Link to="/downslider1">Downslider1</Link>
+            </li>
+            <li>
+              <Link to="/downslider2">Downslider2</Link>
             </li>
             <li>
               <Link to="/test">Test</Link>

@@ -1,9 +1,9 @@
 import React from 'react'
 import { FaPlay, FaPause, FaForward, FaBackward, FaStop } from 'react-icons/fa'
 
-// !VA Lift up the click event handlers to the Slideshow3 parent component. Receive activeIndex, the index flags that indicate last/first index in the array, the play POS and the slideslength ref for the status control.
+// !VA Lift up the click event handlers to the Downslider2 parent component. Receive activeIndex, the index flags that indicate last/first index in the array, the play POS and the slideslength ref for the status control.
 //prettier-ignore
-function Slideshow3Controls({
+function Downslider2Controls({
   prevSlide,
   nextSlide,
   playSlideshow,
@@ -74,4 +74,4 @@ function Slideshow3Controls({
   )
 }
 
-export default Slideshow3Controls
+export default Downslider2Controls
