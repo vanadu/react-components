@@ -5,7 +5,6 @@ import Slideshow3Controls from './Slideshow3Controls'
 import imagedata from '../../../data/Slideshow3Images'
 import './Slideshow3.css'
 import Navbar from '../../../components/Navbar'
-import { FaPlay, FaPause, FaForward, FaBackward, FaStop } from 'react-icons/fa'
 
 // !VA Destructure images array from imagedata json object
 const { images } = imagedata
