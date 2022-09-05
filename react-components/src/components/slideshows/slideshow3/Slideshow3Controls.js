@@ -9,15 +9,49 @@ function Slideshow3Controls({
   playSlideshow,
   pauseSlideshow,
   resetSlideshow,
+  activeIndex,
+  lastIndexFlag,
+  firstIndexFlag,
   play,
 }) {
+  
+  console.log('lastIndexFlag :>> ' + lastIndexFlag);
+  console.log('firstIndexFlag :>> ' + firstIndexFlag);
+
+
+  const styles = {
+    disableNext: {
+      pointerEvents: lastIndexFlag  ? 'none' : 'auto', 
+      color: lastIndexFlag ? 'none' : null,
+      border: lastIndexFlag ? '1px solid green' : null
+    },
+    disablePrev: {
+      pointerEvents: firstIndexFlag  ? 'none' : 'auto', 
+      color: firstIndexFlag ? 'none' : null,
+      border: firstIndexFlag ? '1px solid green' : null
+    }
+  };
+
+
+  // console.log('Controls: activeIndex :>> ' + activeIndex);
+  // console.log('lastIndexFlag :>> ' + lastIndexFlag);
+  // console.log('lastIndexFlag :>> ' + lastIndexFlag);
+
 
   return (
     <div className='slideshow3-controls'>
-      <span className='prev' onClick={prevSlide}>
+      <span 
+        className='prev' 
+        onClick={prevSlide}
+        style={styles.disablePrev}
+        >
         <FaBackward />
       </span>
-      <span className='next' onClick={nextSlide}>
+      <span 
+        className='next' 
+        onClick={nextSlide}
+        style={styles.disableNext}
+        >
         <FaForward />
       </span>
       { play === 'playing'  && (

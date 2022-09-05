@@ -8,7 +8,8 @@ DONE: change all the CSS selectors to be slideshow3 specificity
 DONE: Move title and description below image
 DONE: Make base image below slideshow
 DONE: Strip out first image from array
-TODO: Make all the controls work using z-index
+DONE: Make slideshow the controls work using z-index
+TODO: Make prev and next controls work using z-index
 
 
 TODO: Replace dots with slide number/total status display

@@ -16,21 +16,41 @@ function Slideshow3(props) {
   // !VA Remove the first image from the json data array - it's now being displayed by default when the component is loaded. The slideshow starts with the second image.
   const [, ...slides ] = images
 
-
   // !VA Get the length of the image array
   const len = slides.length - 1
   // !VA Initialize a POS for the active index, which will be used for all actions, i.e. timer and pager
-  const [activeIndex, setActiveIndex] = useState(0)
-  // !VA Initialize POS to track play/pause state: paused: false, playing: true
+  const [activeIndex, setActiveIndex] = useState(-1)
+  // !VA Initialize POS to track play/pause state: init: null, paused: paused, playing: playing
   const [ play, setPlay  ] = useState(null)
+  const [ lastIndexFlag, setLastIndexFlag ] = useState(false)
+  const [ firstIndexFlag, setFirstIndexFlag ] = useState(false)
+
+
+  // !VA The problem is that the FIRST click on next has to set the activeIndex to 0 AND set the zIndex to 2. That will set up an infinite loop tho...
 
 
   const prevSlide= () => {
-    setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)
+    // !VA First set lastIndexFlag to false since activeIndex is being incremented here.
+    setLastIndexFlag(false)
+
+    if (activeIndex >= 0  ) {
+      console.log('decrementing...');
+      setActiveIndex( activeIndex -1 )
+      activeIndex === 0 && setFirstIndexFlag(true)
+    } 
+
   }
   
   const nextSlide = () => {
-    setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
+    // !VA set a POS when the last element in the images array is reached
+    // !VA First set firstIndexFlag to false since activeIndex is being incremented here.
+    setFirstIndexFlag(false)
+    // !VA Compensate for activeIndex initializing at -1. If activeIndex = slides.length, then increment activeIndex, and once activeIndex reached slides.length set the POS, which is then passed to Slideshow3Controls as prop and used to disable the Next button.
+    if (activeIndex + 1 <= len  ) {
+      // console.log('incrementing...');
+      setActiveIndex( activeIndex + 1)
+      activeIndex + 1 === len && setLastIndexFlag(true)
+    } 
   }
   
   const playSlideshow= () => {
@@ -42,7 +62,7 @@ function Slideshow3(props) {
   }
   
   const resetSlideshow = () => {
-    setActiveIndex(0)
+    setActiveIndex(-1)
     setPlay(null)
   }
 
@@ -51,7 +71,7 @@ function Slideshow3(props) {
   useEffect(() => {
     // !VA Variable for setInterval
     let interval
-    console.log('setInterval play :>> ' + play);
+    // console.log('setInterval play :>> ' + play);
     // !VA If the play POS is true, run the slideshow, otherwise pause
     if (play === 'playing') {
       interval = setInterval(() => {
@@ -75,6 +95,8 @@ function Slideshow3(props) {
             activeIndex={activeIndex}
             slides={slides}
             baseslide={baseslide}
+            lastIndexFlag={lastIndexFlag}
+            firstIndexFlag={firstIndexFlag}
             play={play}
           />
 
@@ -93,7 +115,10 @@ function Slideshow3(props) {
           playSlideshow={playSlideshow }
           pauseSlideshow={pauseSlideshow}
           resetSlideshow={resetSlideshow}
-          play={play}                  
+          activeIndex={activeIndex}
+          lastIndexFlag={lastIndexFlag}
+          firstIndexFlag={firstIndexFlag}
+          play={play}
         />
 
 

@@ -4,9 +4,14 @@ import { useState, useEffect } from 'react'
 //prettier-ignore
 function Slideshow3Content({ activeIndex, slides, baseslide, play }) {
 
+  const len = slides.length;
+
   const styles = {
-    bringforward: {
+    playingpaused: {
       zIndex: play === 'playing' || play === 'paused' ? 2 : -1,
+    },
+    prevnext: {
+      zIndex: 2
     }
   };
   
@@ -31,7 +36,8 @@ function Slideshow3Content({ activeIndex, slides, baseslide, play }) {
             key={index}
             className={`slideshow3-slide bringforward ${index === activeIndex ? 'active' : 'inactive'}`}
             // style={ play ? { zIndex: 1 } : { zIndex: -1 }
-            style={styles.bringforward}
+            style={styles.playingpaused}
+            style={styles.prevnext}
             >
             <div className="slideshow3-slide-image">
               <img className='slideshow3-slide-image' src={slide.urls} alt='' />
