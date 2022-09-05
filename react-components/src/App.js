@@ -7,6 +7,7 @@ import ReadMoreDemo from './components/ReadMoreDemo'
 import ScrollIntoView from './components/ScrollIntoView'
 import SlideshowComponent from './components/slideshows/SlideshowComponent'
 import Slideshow2Component from './components/slideshows/Slideshow2Component'
+import Slideshow3 from './components/slideshows/Slideshow3'
 import DownsliderComponent from './components/slideshows/DownsliderComponent'
 import Test from './components/Test'
 
@@ -32,6 +33,7 @@ function App() {
             <Route path='/scroll-into-view' element={<ScrollIntoView />} /> 
             <Route path='/slideshow' element={<SlideshowComponent />} /> 
             <Route path='/slideshow2' element={<Slideshow2Component />} /> 
+            <Route path='/slideshow3' element={<Slideshow3 />} /> 
             <Route path='/downslider' element={<DownsliderComponent />} /> 
             <Route path='/test' element={<Test />} /> 
           </Routes>

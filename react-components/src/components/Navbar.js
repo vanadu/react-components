@@ -36,6 +36,9 @@ const Navbar = () => {
               <Link to="/slideshow2">Slideshow2</Link>
             </li>
             <li>
+              <Link to="/slideshow3">Slideshow3</Link>
+            </li>
+            <li>
               <Link to="/downslider">Downslider</Link>
             </li>
             <li>

@@ -1,9 +1,11 @@
 import React from 'react'
 
-function SliderContent({ activeIndex, sliderImage }) {
+//prettier-ignore
+function Slideshow3Content({ activeIndex, images }) {
+
   return (
-    <section>
-      {sliderImage.map((slide, index) => (
+    <>
+      {images.map((slide, index) => (
         <div
           key={index}
           className={index === activeIndex ? 'slides active' : 'inactive'}>
@@ -12,8 +14,8 @@ function SliderContent({ activeIndex, sliderImage }) {
           <h3 className='slide-text'>{slide.description}</h3>
         </div>
       ))}
-    </section>
+    </>
   )
 }
 
-export default SliderContent
+export default Slideshow3Content

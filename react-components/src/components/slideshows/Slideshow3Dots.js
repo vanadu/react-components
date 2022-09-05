@@ -1,9 +1,11 @@
 import React from 'react'
 
-function Dots({ activeIndex, onclick, sliderImage }) {
+//prettier-ignore
+function Slideshow3Dots({ activeIndex, onclick, images }) {
+
   return (
     <div className='all-dots'>
-      {sliderImage.map((slide, index) => (
+      {images.map((slide, index) => (
         <span
           key={index}
           className={`${activeIndex === index ? 'dot active-dot' : 'dot'}`}
@@ -13,4 +15,4 @@ function Dots({ activeIndex, onclick, sliderImage }) {
   )
 }
 
-export default Dots
+export default Slideshow3Dots
