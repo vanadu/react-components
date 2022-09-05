@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, useContext } from 'react'
-import { DownsliderContext } from '../../context/DownsliderContext'
+import { Downslider1Context } from '../../../context/Downslider1Context'
 
 // !VA Extract the context from the import
 //prettier-ignore
-export function Downslider({ children }) {
+export function Downslider1({ children }) {
   // !VA Set the context, i.e. the POS which will be used throughout the component and its dependencies. Items is the array of items, activated is the boolean trigger. If activated is true, move the slide in. If it is false, move the slide out
 
   // !VA DO NOT FORGET THAT IF YOUR CONTEXT INCLUDES A USESTATE, YOU HAVE TO EXTRACT BOTH THE VARIABLE AND THE SETTER FROM THE CONTEXT!!!!!
-  const [context, setContext] = useContext(DownsliderContext)
+  const [context, setContext] = useContext(Downslider1Context)
 
   const delay = 1000
 
@@ -52,9 +52,9 @@ export function Downslider({ children }) {
   // console.log(context.activated)
 
   // !VA NOTE height and width should be set in the CSS/SCSS for responsive projects.
-  // !VA IMPORTANT: This component only renders once. 'children' contains the array of DownsliderItem components passed in from DownsliderComponent component.
+  // !VA IMPORTANT: This component only renders once. 'children' contains the array of Downslider1Item components passed in from Downslider1Component component.
   return (
-    <DownsliderContext.Provider value={[context, setContext]}>
+    <Downslider1Context.Provider value={[context, setContext]}>
       <div
         className='downslider-image-container'
         style={{
@@ -66,23 +66,23 @@ export function Downslider({ children }) {
         {/* {init ? initialChild : children} */}
         {children}
       </div>
-    </DownsliderContext.Provider>
+    </Downslider1Context.Provider>
   )
 }
 
-// !VA This component gets all the Downslider items, assigns a unique name to them, and passes that name in the children prop every time the component is mounted.
-// !VA 'children' here is a single DownsliderItem with the data for a single item in the json data array.
+// !VA This component gets all the Downslider1 items, assigns a unique name to them, and passes that name in the children prop every time the component is mounted.
+// !VA 'children' here is a single Downslider1Item with the data for a single item in the json data array.
 //prettier-ignore
-export function DownsliderItem({ children, autoplay }) {
+export function Downslider1Item({ children, autoplay }) {
   // !VA Generate a unique name for the slide and assign it to a ref. This uses the Javasscript performance.now method to generate what _should_ be a unique number value, since it takes the performance of the current function to the millisecond and then tacks on a random onto it - that is a very long number.
   const name = useRef(`${performance.now()}_${Math.random()}`)
   // !VA Get the context POS
-  const [context, setContext ] = useContext(DownsliderContext)
+  const [context, setContext ] = useContext(Downslider1Context)
   // !VA Set the POS for the ready state for sliding in the next slide
   const [stage, setStage] = useState('ready')
   // const [count, setCount] = useState(0)
 
-  // !VA Run this once when the component is mounted. Here we populate the context.items POS with the unique name of the Downslider items when the component mounts, and remove them again when the component unmounts. THIS ONLY RUNS ONCE!!!!! It only runs once to populate the initial context.items array, which has SIX items, i.e. the unique name from name above for each data item. TWICE. The second 3 are duplicates.
+  // !VA Run this once when the component is mounted. Here we populate the context.items POS with the unique name of the Downslider1 items when the component mounts, and remove them again when the component unmounts. THIS ONLY RUNS ONCE!!!!! It only runs once to populate the initial context.items array, which has SIX items, i.e. the unique name from name above for each data item. TWICE. The second 3 are duplicates.
 
 
   // !VA NOW This only sees the context POS state, i.e. when the component is mounted. It doesn't register the Play button click.

@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
 // !VA Create the context
-const SlideshowContext = createContext()
+const Slideshow1Context = createContext()
 
-export function Slideshow({ children, classname }) {
+export function Slideshow1({ children, classname }) {
   // !VA Set the context, i.e. the POS which will be used throughout the component and its dependencies. Items is the array of items, activated is the boolean trigger. If activated is true, move the slide in. If it is false, move the slide out
   const [context, setContext] = useState({
     items: [],
@@ -39,10 +39,10 @@ export function Slideshow({ children, classname }) {
   // console.log(context.items)
   // console.log(context.activated)
 
-  // !VA Render the div containing the slide image, which is passed in from the SlideshowItem component in the children prop. I neeed to refresh my memory on the value of the provider and how that fits in with the value prop.N
+  // !VA Render the div containing the slide image, which is passed in from the Slideshow1Item component in the children prop. I neeed to refresh my memory on the value of the provider and how that fits in with the value prop.N
   // !VA NOTE height and width should be set in the CSS/SCSS for responsive projects.
   return (
-    <SlideshowContext.Provider value={[context, setContext]}>
+    <Slideshow1Context.Provider value={[context, setContext]}>
       <div
         className={`${classname}`}
         style={{
@@ -53,20 +53,20 @@ export function Slideshow({ children, classname }) {
         }}>
         {children}
       </div>
-    </SlideshowContext.Provider>
+    </Slideshow1Context.Provider>
   )
 }
 
-// !VA This component gets all the Slideshow items, assigns a unique name to them, and passes that name in the children prop every time the component is mounted.
-export function SlideshowItem({ children }) {
+// !VA This component gets all the Slideshow1 items, assigns a unique name to them, and passes that name in the children prop every time the component is mounted.
+export function Slideshow1Item({ children }) {
   // !VA Generate a unique name for the slide and assign it to a ref. This uses the Javasscript performance.now method to generate what _should_ be a unique number value, since it takes the performance of the current function to the millisecond and then tacks on a random onto it - that is a very long number.
   const name = useRef(`${performance.now()}_${Math.random()}`)
   // !VA Get the context POS
-  const [context] = useContext(SlideshowContext)
+  const [context] = useContext(Slideshow1Context)
   // !VA Set the POS for the ready state for sliding in the next slide
   const [stage, setStage] = useState('ready')
 
-  // !VA Run this once when the component is mounted. Here we populate the context.items POS with the unique name of the Slideshow items when the component mounts, and remove them again when the component unmounts.
+  // !VA Run this once when the component is mounted. Here we populate the context.items POS with the unique name of the Slideshow1 items when the component mounts, and remove them again when the component unmounts.
   useEffect(() => {
     context.items.push(name.current)
     return () => {

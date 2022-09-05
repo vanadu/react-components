@@ -5,10 +5,10 @@ import AccordionOpenAll from './components/accordions/accordion-open-all/Accordi
 import AccordionOpenOne from './components/accordions/accordion-open-one/AccordionOpenOne'
 import ReadMoreDemo from './components/ReadMoreDemo'
 import ScrollIntoView from './components/ScrollIntoView'
-import SlideshowComponent from './components/slideshows/SlideshowComponent'
-import Slideshow2Component from './components/slideshows/Slideshow2Component'
-import Slideshow3 from './components/slideshows/Slideshow3'
-import DownsliderComponent from './components/slideshows/DownsliderComponent'
+import Slideshow1Component from './components/slideshows/slideshow1/Slideshow1Component'
+import Slideshow2Component from './components/slideshows/slideshow2/Slideshow2Component'
+import Slideshow3 from './components/slideshows/slideshow3/Slideshow3'
+import Downslider1Component from './components/slideshows/downslider1/Downslider1Component'
 import Test from './components/Test'
 
 import './App.css'
@@ -31,10 +31,10 @@ function App() {
             <Route path='/accordion-open-one' element={<AccordionOpenOne />} /> 
             <Route path='/read-more-demo' element={<ReadMoreDemo />} /> 
             <Route path='/scroll-into-view' element={<ScrollIntoView />} /> 
-            <Route path='/slideshow' element={<SlideshowComponent />} /> 
+            <Route path='/slideshow1' element={<Slideshow1Component />} /> 
             <Route path='/slideshow2' element={<Slideshow2Component />} /> 
             <Route path='/slideshow3' element={<Slideshow3 />} /> 
-            <Route path='/downslider' element={<DownsliderComponent />} /> 
+            <Route path='/downslider1' element={<Downslider1Component />} /> 
             <Route path='/test' element={<Test />} /> 
           </Routes>
         </BrowserRouter>

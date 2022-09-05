@@ -1,9 +1,9 @@
 import { createContext, useState } from 'react'
 
-export const DownsliderContext = createContext()
+export const Downslider1Context = createContext()
 
 //prettier-ignore
-export function DownsliderProvider({ children }) {
+export function Downslider1Provider({ children }) {
   const [context, setContext] = useState({
     items: [],
     activated: false,
@@ -11,8 +11,8 @@ export function DownsliderProvider({ children }) {
   })
 
   return (
-    <DownsliderContext.Provider value={[context, setContext]}>
+    <Downslider1Context.Provider value={[context, setContext]}>
       {children}
-    </DownsliderContext.Provider>
+    </Downslider1Context.Provider>
   )
 }

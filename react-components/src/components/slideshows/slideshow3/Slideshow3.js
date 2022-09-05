@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Slideshow3Content from './Slideshow3Content'
 import Slideshow3Dots from './Slideshow3Dots'
 import Slideshow3Controls from './Slideshow3Controls'
-import imagedata from '../../data/Slideshow3Images'
+import imagedata from '../../../data/Slideshow3Images'
 import './Slideshow3.css'
-import Navbar from '../../components/Navbar'
+import Navbar from '../../../components/Navbar'
 import { FaPlay, FaPause, FaForward, FaBackward, FaStop } from 'react-icons/fa'
 
 // !VA Destructure images array from imagedata json object
@@ -16,13 +16,20 @@ const len = images.length - 1
 function Slideshow3(props) {
   // !VA Initialize a POS for the active index, which will be used for all actions, i.e. timer and pager
   const [activeIndex, setActiveIndex] = useState(0)
+  const [ play, setPlay  ] = useState(false)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
-    }, 2000)
+    let interval
+    console.log('play :>> ' + play);
+    if (play) {
+      interval = setInterval(() => {
+        setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
+      }, 2000)
+    }
+
+
     return () => clearInterval(interval)
-  }, [activeIndex])
+  }, [activeIndex, play])
 
   console.log('activeIndex :>> ');
   console.log(activeIndex);
@@ -52,36 +59,25 @@ function Slideshow3(props) {
             nextSlide={() =>
               setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
             }
+            playSlideshow={() => {
+              // setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
+               setPlay(true)
+              }
+            }
+            pauseSlideshow={() => {
+              // setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
+              setPlay(false)
+              }
+            }
+            resetSlideshow={() => {
+              setActiveIndex(0)
+              setPlay(false)
+              }
+            }                        
           />
 
 
-        {/* <div 
-          className="slideshow3-controls-previous slideshow3-controls"
-
-          >
-          <div className="slideshow3-controls-label">
-            <p>Previous</p>
-          </div>
-          <div className='slideshow3-controls-icon'>
-            <FaBackward />
-          </div>          
         </div>
-
-        <div 
-          className="slideshow3-controls-next slideshow3-controls"
-
-          >
-          <div className="slideshow3-controls-label">
-            <p>Next</p>
-          </div>
-          <div className='slideshow3-controls-icon'>
-            <FaForward />
-          </div>          
-        </div> */}
-
-
-        
-      </div>
       </div>
       <Navbar />
     </>

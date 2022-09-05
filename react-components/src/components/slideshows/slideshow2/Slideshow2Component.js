@@ -3,9 +3,9 @@
 // import { useState, useEffect } from 'react'
 import { Slideshow2, Slideshow2Item } from './Slideshow2'
 import './Slideshow2.css'
-import Navbar from '../Navbar'
+import Navbar from '../../Navbar'
 
-import imagedata from '../../data/ChicagoAlbumImageData.json'
+import imagedata from '../../../data/ChicagoAlbumImageData.json'
 
 // !VA https://dev.to/anxiny/create-a-Slideshow2-with-react-1pb1
 // !VA In a real project, the image data for the respective Slideshow2 would be passed in from the parent component in which Slideshow2Component is first called as the imagedata prop, see the About page in the crossandhigh.com. Here, imagedata is imported directly from the json data file.
