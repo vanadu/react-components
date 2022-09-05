@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useContext } from 'react'
 import { DownsliderContext } from '../../context/DownsliderContext'
 
 // !VA Extract the context from the import
-
+//prettier-ignore
 export function Downslider({ children }) {
   // !VA Set the context, i.e. the POS which will be used throughout the component and its dependencies. Items is the array of items, activated is the boolean trigger. If activated is true, move the slide in. If it is false, move the slide out
 
@@ -14,9 +14,11 @@ export function Downslider({ children }) {
   // !VA Set a ref to the timer object. We need the ref to refer to the timer in order to clearTimeout and setTimeout
   const timer = useRef(null)
 
+  const [count, setCount ] = useState(0)
+
   useEffect(() => {
     // !VA NOW If context.play is true, clear the timeout and reset the timeout. This will just run the slideshow from the current context.item without changing anything else. Since it's the same timer, it will just resume. If context.play is false, then  clear the timeout.
-    if (context.play) {
+    if (context.play && count <= (context.items.length / 2) + 1 ) {
       if (timer.current) clearTimeout(timer.current)
       timer.current = setTimeout(() => {
         if (context.items.length > 1 && context.activated) {
@@ -25,18 +27,24 @@ export function Downslider({ children }) {
           // console.log('head :>> ' + head)
           // !VA Push the next item in the array - shift and push cycles through the array
           context.items.push(head)
+          console.log('head :>> ' + head);
         }
         // !VA Toggle the context.activated POS
         context.activated = !context.activated
         // !VA Write the current context, i.e. the items array and the toggle state of the activated property the context POS
         // !VA HERE
+        setCount(count + 1)
+        console.log('count :>> ' + count);
         setContext({ ...context })
       }, delay)
       // !VA return the function that resets the timer ref
-      return () => clearTimeout(timer.current)
+      return () => {  
+        clearTimeout(timer.current)
+      }
     } else {
       return () => clearTimeout(timer.current)
     }
+    
   })
 
   // !VA Log the context items and their activated property
@@ -69,34 +77,73 @@ export function DownsliderItem({ children, autoplay }) {
   // !VA Generate a unique name for the slide and assign it to a ref. This uses the Javasscript performance.now method to generate what _should_ be a unique number value, since it takes the performance of the current function to the millisecond and then tacks on a random onto it - that is a very long number.
   const name = useRef(`${performance.now()}_${Math.random()}`)
   // !VA Get the context POS
-  const [context] = useContext(DownsliderContext)
+  const [context, setContext ] = useContext(DownsliderContext)
   // !VA Set the POS for the ready state for sliding in the next slide
   const [stage, setStage] = useState('ready')
+  // const [count, setCount] = useState(0)
 
   // !VA Run this once when the component is mounted. Here we populate the context.items POS with the unique name of the Downslider items when the component mounts, and remove them again when the component unmounts. THIS ONLY RUNS ONCE!!!!! It only runs once to populate the initial context.items array, which has SIX items, i.e. the unique name from name above for each data item. TWICE. The second 3 are duplicates.
 
+
   // !VA NOW This only sees the context POS state, i.e. when the component is mounted. It doesn't register the Play button click.
   useEffect(() => {
-
     context.items.push(name.current)
-
     return () => {
       // !VA Here we are de-populating the context.items array, removing the unique names one by run each time the component is unmounted.
       const index = context.items.indexOf(name.current)
     }
   }, [context.items])
 
+  let activeName
+
+
+
+
+
+    // console.log('Mark2 context.move :>> ' + context.move);
+    let numImages
+    useEffect(() => {
+        // console.log('context.items.length :>> ' + context.items.length);
+        numImages = context.items.length / 2
+        // console.log('numImages :>> ' + numImages);
+        if (context.move) {
+          // console.log('context.count :>> ' + context.count);
+          console.log('context.count :>> ' + context.count);
+          if (context.count ) {
+            activeName = context.items[context.count - 1]
+            if (activeName === name.current) {
+              setStage('on')
+            }
+            // !VA If the activeName value is NOT equal to the name ref AND the stage POS is on, then set the stage POS to off. This is the slide being shown BEHIND the currently moving slide.
+            if (activeName !== name.current && stage === 'on') {
+              setStage('off')
+            }
+            // !VA If the activeName is not equal to name.current and the stage POS is 'off'. These are the slides in their default position outside the container waiting to be moved.
+            if (activeName !== name.current && stage === 'off') {
+              setStage('ready')
+            }
+          }
+        }
+
+    return () => {  
+        setContext( prevState => ({ ...prevState, move: null }) )   
+      }
+    
+  }, [context.move]);
+
+
+
+
   // !VA This runs every time the context POS changes. What that means is that each time the useEffect above runs and an item in the context array is changed, this useEffect runs also. I think...so it will run once for EACH item in the context POS. This is where we determine which slides to move.
   useEffect(() => {
-
-
+    activeName = context.items[0]
     // !VA Set activeName to the unique name of the first element in the items array.
-    const activeName = context.items[0]
-
 
     // !VA The stage POS initializes with 'ready' so only setStage to 'on' or anything else if context.play is true. All the slides will wait off-container until the context.play is true and a stage value is set.
-    console.log('context.play :>> ' + context.play);
     if (context.play) {
+      
+
+
       // !VA If the activeName value is equal to the name ref created at the top of the component, then set the state POS to on. This is the slide that is currently being slid into view.
       if (activeName === name.current) {
         setStage('on')
@@ -108,14 +155,11 @@ export function DownsliderItem({ children, autoplay }) {
       // !VA If the activeName is not equal to name.current and the stage POS is 'off'. These are the slides in their default position outside the container waiting to be moved.
       if (activeName !== name.current && stage === 'off') {
         setStage('ready')
-        console.log('HIT');
       }
-    } else {
-      return
-    }
+    } 
+  }, [context, context.count])
 
-
-  }, [context])
+  // console.log('stage :>> ' + stage);
 
   // !VA Initialize the left and zIndex variables. They don't need to be state variables because they don't need to retain their values between renders.
   let bottom = 0
@@ -138,12 +182,9 @@ export function DownsliderItem({ children, autoplay }) {
     default:
   }
 
-  console.log('stage :>> ' + stage);
 
   return (
     <>
-      
-      
       <div
         className='downslider-content'
         style={{
@@ -155,9 +196,6 @@ export function DownsliderItem({ children, autoplay }) {
         }}>
         {children}
       </div>
-      
-      
-
     </>
   )
 }

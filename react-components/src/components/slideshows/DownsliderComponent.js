@@ -5,6 +5,7 @@
   DONE: Get the slideshow to start when the Play icon is clicked.
     * Tried conditionally rendering the Downslider component when context.play is true, but that just showed/hid it and didn't stop the slideshow and didn't re-display it once it was hidden.
   DONE: Figure out how to stop the first image in the slideshow to descend before play is pushed. It descends even if context.play is false. See the setStage POS - if context.play is false, then no stage POS is set, leaving all the slides in their ready position off-container until a stage POS is set.
+  PROBLEM: You cannot set a state in one component while rendering another component. In other words, there are limites to useContext, because you can't set the state across components while they are rendering. 
 
 
 
@@ -17,7 +18,7 @@ import { useState, useEffect } from 'react'
 import { Downslider, DownsliderItem } from './Downslider'
 import './Downslider.css'
 import Navbar from '../Navbar'
-import { FaPlay, FaPause, FaStop } from 'react-icons/fa'
+import { FaPlay, FaPause, FaForward, FaBackward, FaStop } from 'react-icons/fa'
 
 import imagedata from '../../data/DeltaBluesAlbumImages.json'
 
@@ -35,10 +36,11 @@ export default function DownsliderComponent() {
   const [context, setContext] = useState({
     items: [],
     activated: false,
-    current: 1,
+    count: 0,
     play: false,
     stop: false,
-    init: true
+    init: true,
+    move: null
   })
 
   // !VA Extract the images array from the imagedata object.
@@ -51,22 +53,44 @@ export default function DownsliderComponent() {
   const handlePlay = () => {
     console.log('handlePlay running');
     let play;
-
-
     // !VA SUPER IMPORTANT!!!! Toggle a property within a state object!!!!
     setContext( prevState => ({ ...prevState, play: !prevState.play }) )
+    setContext( prevState => ({ ...prevState, count: 0 }) )
 
   }
 
   const handleStop = () => {
     console.log('handleStop running');
-    setContext( {...context, play: false, stop: true } )
+    setContext( {...context, stop: true } )
+    setContext( {...context, play: false})
+  }
+
+  const handleNext = () => {
+    // console.log('handleNext running');
+    setContext( prevState => ({ ...prevState, move: 'next' }) )
+    setContext( prevState => ({ ...prevState, play: false }) )
+    console.log('context.items.length / 2:>> ' + context.items.length / 2);
+    if (context.count < context.items.length /2 ) { 
+      // console.log('handleNext context.count :>> ' + context.count);
+      setContext( prevState => ({ ...prevState, count: context.count + 1 }) )
+    }
+  }
+
+  const handlePrevious = () => {
+    // console.log('handlePrevious running');
+    setContext( prevState => ({ ...prevState, play: false }) )
+    setContext( prevState => ({ ...prevState, move: 'previous' }) )
+    if (context.count >= 1 ) { 
+      // console.log('handlePrevious context.count :>> ' + context.count);
+      setContext( prevState => ({ ...prevState, count: context.count - 1 }) )
+    }
   }
 
 
   useEffect(() => {
     setInit(true)
   }, []);
+
 
 
 
@@ -128,7 +152,36 @@ export default function DownsliderComponent() {
               </div>
             )
             }
-            <div className="downslider-controls-stop downslider-controls">
+
+
+            <div 
+              className="downslider-controls-previous downslider-controls"
+              onClick={handlePrevious}
+              >
+              <div className="downslider-controls-label">
+                <p>Previous</p>
+              </div>
+              <div className='downslider-controls-icon'>
+                <FaBackward />
+              </div>          
+            </div>
+
+            <div 
+              className="downslider-controls-next downslider-controls"
+              onClick={handleNext}
+              >
+              <div className="downslider-controls-label">
+                <p>Next</p>
+              </div>
+              <div className='downslider-controls-icon'>
+                <FaForward />
+              </div>          
+            </div>
+
+
+
+
+            <div className="downslider-controls-next downslider-controls">
               <div className="downslider-controls-label">
                 <p>Reset</p>
               </div>
@@ -136,6 +189,12 @@ export default function DownsliderComponent() {
                 <FaStop />
               </div>          
             </div>
+
+
+
+
+
+
           </div>
       </div>
       </DownsliderContext.Provider>

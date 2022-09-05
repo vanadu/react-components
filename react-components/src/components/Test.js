@@ -43,6 +43,7 @@ export default function Test() {
   return (
     <div className='App'>
       <button onClick={handleClick}>Show</button>
+      {state3.prop3 && <h1>Hello World</h1>}
     </div>
   )
 }
