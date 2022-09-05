@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Slideshow3Content from './Slideshow3Content'
 import Slideshow3Dots from './Slideshow3Dots'
 import Slideshow3Controls from './Slideshow3Controls'
@@ -16,40 +16,39 @@ function Slideshow3(props) {
   // !VA Remove the first image from the json data array - it's now being displayed by default when the component is loaded. The slideshow starts with the second image.
   const [, ...slides ] = images
 
-  // !VA Get the length of the image array
-  const len = slides.length - 1
+
   // !VA Initialize a POS for the active index, which will be used for all actions, i.e. timer and pager
   const [activeIndex, setActiveIndex] = useState(-1)
   // !VA Initialize POS to track play/pause state: init: null, paused: paused, playing: playing
   const [ play, setPlay  ] = useState(null)
   const [ lastIndexFlag, setLastIndexFlag ] = useState(false)
   const [ firstIndexFlag, setFirstIndexFlag ] = useState(false)
-
-
-  // !VA The problem is that the FIRST click on next has to set the activeIndex to 0 AND set the zIndex to 2. That will set up an infinite loop tho...
+  const [ slidesLength, setSlidesLength ] = useState(0)
+  // !VA Get the length of the image array to a ref. Use a ref so you can pass it to Slideshow3Controls to use in the status control.
+  const slideslength = useRef(null);
+  // !VA Set the ref to the slides.length + 1 to compensate for 0-based.
+  slideslength.current = slides.length - 1
 
 
   const prevSlide= () => {
     // !VA First set lastIndexFlag to false since activeIndex is being incremented here.
     setLastIndexFlag(false)
-
+    // !VA Decrement until the first index is reached, then set a flag POS to indicate the first position has been reached. You can use this to disable the Prev button.
     if (activeIndex >= 0  ) {
       console.log('decrementing...');
       setActiveIndex( activeIndex -1 )
       activeIndex === 0 && setFirstIndexFlag(true)
     } 
-
   }
   
   const nextSlide = () => {
-    // !VA set a POS when the last element in the images array is reached
     // !VA First set firstIndexFlag to false since activeIndex is being incremented here.
     setFirstIndexFlag(false)
     // !VA Compensate for activeIndex initializing at -1. If activeIndex = slides.length, then increment activeIndex, and once activeIndex reached slides.length set the POS, which is then passed to Slideshow3Controls as prop and used to disable the Next button.
-    if (activeIndex + 1 <= len  ) {
+    if (activeIndex + 1 <= slideslength.current  ) {
       // console.log('incrementing...');
       setActiveIndex( activeIndex + 1)
-      activeIndex + 1 === len && setLastIndexFlag(true)
+      activeIndex + 1 === slideslength.current && setLastIndexFlag(true)
     } 
   }
   
@@ -76,7 +75,7 @@ function Slideshow3(props) {
     if (play === 'playing') {
       interval = setInterval(() => {
         // !VA If activeIndex = length of the image array, then it's reached the last image in the slideshow, so reset activeIndex to 0, otherwise increment activeIndex to advance 
-        setActiveIndex(activeIndex === len ? 0 : activeIndex + 1)
+        setActiveIndex(activeIndex === slideslength.current ? 0 : activeIndex + 1)
       }, 2000)
     }
     // !VA clear the setInterval object
@@ -115,10 +114,12 @@ function Slideshow3(props) {
           playSlideshow={playSlideshow }
           pauseSlideshow={pauseSlideshow}
           resetSlideshow={resetSlideshow}
+          slidesLength={slidesLength}
           activeIndex={activeIndex}
           lastIndexFlag={lastIndexFlag}
           firstIndexFlag={firstIndexFlag}
           play={play}
+          slideslength={slideslength}
         />
 
 

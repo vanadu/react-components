@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaPlay, FaPause, FaForward, FaBackward, FaStop } from 'react-icons/fa'
 
-// !VA Lift up the click event handlers to the Slideshow3 parent component
+// !VA Lift up the click event handlers to the Slideshow3 parent component. Receive activeIndex, the index flags that indicate last/first index in the array, the play POS and the slideslength ref for the status control.
 //prettier-ignore
 function Slideshow3Controls({
   prevSlide,
@@ -13,33 +13,28 @@ function Slideshow3Controls({
   lastIndexFlag,
   firstIndexFlag,
   play,
+  slideslength
 }) {
-  
-  console.log('lastIndexFlag :>> ' + lastIndexFlag);
-  console.log('firstIndexFlag :>> ' + firstIndexFlag);
 
-
+  // !VA Conditional styles for disabling Prev and Next controls when the last/first index is reached.
   const styles = {
     disableNext: {
       pointerEvents: lastIndexFlag  ? 'none' : 'auto', 
-      color: lastIndexFlag ? 'none' : null,
-      border: lastIndexFlag ? '1px solid green' : null
+      color: lastIndexFlag ? 'gray' : null,
     },
     disablePrev: {
       pointerEvents: firstIndexFlag  ? 'none' : 'auto', 
-      color: firstIndexFlag ? 'none' : null,
-      border: firstIndexFlag ? '1px solid green' : null
+      color: firstIndexFlag ? 'gray' : null,
     }
   };
 
 
-  // console.log('Controls: activeIndex :>> ' + activeIndex);
-  // console.log('lastIndexFlag :>> ' + lastIndexFlag);
-  // console.log('lastIndexFlag :>> ' + lastIndexFlag);
-
-
   return (
     <div className='slideshow3-controls'>
+      {/* Show the controls only if a slide is displayed, i.e. not when the base image is displayed. activeIndex has to be greater than 0  */}
+      <p className="slideshow3-status">
+        { activeIndex  >= 0 &&   `${activeIndex + 1} of ${slideslength.current + 1}`   }
+      </p>
       <span 
         className='prev' 
         onClick={prevSlide}
