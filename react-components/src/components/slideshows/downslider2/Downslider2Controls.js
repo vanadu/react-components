@@ -29,7 +29,6 @@ function Downslider2Controls({
   // };
 
 
-  console.log('Conrols: play :>> ' + play);
   return (
     <div className='downslider2-controls'>
       {/* Show the controls only if a slide is displayed, i.e. not when the base image is displayed. activeIndex has to be greater than 0  */}

@@ -61,28 +61,55 @@ function Downslider2(props) {
   const resetSlideshow = () => {
     setActiveIndex(-1)
     setPlay(null)
+    setFirstIndexFlag(true)
+    setLastIndexFlag(false)
   }
+
+
+  useEffect(() => {
+    // setFirstIndexFlag(true)
+    console.clear()
+    console.log('INIT activeIndex :>> ' + activeIndex);
+
+  }, []);
+
+
 
 
   // !VA Autoplay slideshow
   useEffect(() => {
     // !VA Variable for setInterval
-    let interval
+    let timeout, delay
+
     // console.log('setInterval play :>> ' + play);
     // !VA If the play POS is true, run the slideshow, otherwise pause
     if (play === 'playing') {
-      interval = setInterval(() => {
-        // !VA If activeIndex = length of the image array, then it's reached the last image in the slideshow, so reset activeIndex to 0, otherwise increment activeIndex to advance 
-        setActiveIndex(activeIndex === slideslength.current ? 0 : activeIndex + 1)
-      }, 2000)
+      // !VA Skip the preload and start the delay after the first slide appears
+      activeIndex === -1 ? delay = 10 : delay = 2000
+
+      timeout = setTimeout(() => {
+        // !VA If activeIndex = length of the image array, then it's reached the last image in the slideshow, so reset activeIndex to 0, set lastIndexFlag to true, and setPlay to null (removes disabled style from the Prev pager), otherwise increment activeIndex to advance 
+        // setActiveIndex(activeIndex === slideslength.current ? 0 : activeIndex + 1)
+        if (activeIndex === slideslength.current ) {
+          console.log('activeIndex :>> ' + activeIndex);
+          setLastIndexFlag(true)
+          clearTimeout(timeout)
+          setPlay(null)
+          return
+        } else {
+          setActiveIndex( activeIndex + 1)
+          activeIndex === 0 ? setFirstIndexFlag(true) : setFirstIndexFlag(false)
+        }
+      
+
+      }, delay)
     }
     // !VA clear the setInterval object
-    return () => clearInterval(interval)
+    return () => clearTimeout(timeout)
     // !VA set the dependencies of the useEffect: activeIndex and play are the POSs that change in the sideeffect
   }, [activeIndex, play])
 
-  console.log('activeIndex :>> ');
-  console.log(activeIndex);
+  console.log('activeIndex :>> ' + activeIndex);
 
   return (
     <>
@@ -94,6 +121,7 @@ function Downslider2(props) {
             baseslide={baseslide}
             lastIndexFlag={lastIndexFlag}
             firstIndexFlag={firstIndexFlag}
+            slideslength={slideslength.current}
             play={play}
           />
 
@@ -102,17 +130,18 @@ function Downslider2(props) {
 
         {/* Receive the click handlers from and pass the play POS to the child Downslider2Component */}
         <Downslider2Controls
+          // !VA These are the lifted-up props from child
           prevSlide={prevSlide}
           nextSlide={nextSlide}
           playSlideshow={playSlideshow }
           pauseSlideshow={pauseSlideshow}
           resetSlideshow={resetSlideshow}
-          slidesLength={slideslength.current}
+          // !VA These are the props passed to child
+          slideslength={slideslength}
           activeIndex={activeIndex}
           lastIndexFlag={lastIndexFlag}
           firstIndexFlag={firstIndexFlag}
           play={play}
-          slideslength={slideslength}
         />
 
 

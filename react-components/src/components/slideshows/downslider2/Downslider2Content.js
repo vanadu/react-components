@@ -10,8 +10,8 @@ function Downslider2Content({ activeIndex, slides, baseslide, play }) {
     playingpaused: {
       zIndex: play === 'playing' || play === 'paused' ? 2 : -1,
     },
-    prevnext: {
-      zIndex: 2
+    slidesshow: {
+      zIndex: activeIndex > -1 ? 2 : -1
     }
   };
   
@@ -34,8 +34,8 @@ function Downslider2Content({ activeIndex, slides, baseslide, play }) {
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`downslider2-slide ${index === activeIndex ? 'active' : 'inactive'}`}
-            style={styles.playingpaused, styles.prevnext}
+            className={`downslider2-slide ${index === activeIndex ? 'active' : 'inactive'}  ${activeIndex > -1 ? 'downslider1-slide-show' : ''}`}
+            // style={styles.slidesshow}
             >
             <div className="downslider2-slide-image">
               <img className='downslider2-slide-image' src={slide.urls} alt='' />
