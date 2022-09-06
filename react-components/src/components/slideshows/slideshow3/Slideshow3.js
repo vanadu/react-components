@@ -13,22 +13,20 @@ function Slideshow3(props) {
   const { images } = imagedata
   // !VA baseslide is static slide that lives at the bottom of the slide stack, it is not a slideshow slide. The slideshow slides move/fade over it.
   const baseslide = images[0]
-  // !VA Remove the first image from the json data array - it's now being displayed by default when the component is loaded. The slideshow starts with the second image.
+  // !VA Remove the first image from the json data array - it's now being displayed by default as baseslide, i.e. the static image that lives under the slideshow and displays when the component is loaded. The slideshow starts with the second image.
   const [, ...slides ] = images
-
-
-  // !VA Initialize a POS for the active index, which will be used for all actions, i.e. timer and pager
+  // !VA Initialize a POS for the active index, which will be used for all actions, i.e. timer and pager. It is initialized at -1 so that the first slide in the array will display when the Next pager button is pressed.
   const [activeIndex, setActiveIndex] = useState(-1)
   // !VA Initialize POS to track play/pause state: init: null, paused: paused, playing: playing
   const [ play, setPlay  ] = useState(null)
+  // !VA Boolean POS flag to track if the current index is the last index before the activeIndex POS is reset to 0
   const [ lastIndexFlag, setLastIndexFlag ] = useState(false)
+  // !VA Boolean POS flag to track if the current index is the first index, i.e. 0
   const [ firstIndexFlag, setFirstIndexFlag ] = useState(false)
-  const [ slidesLength, setSlidesLength ] = useState(0)
-  // !VA Get the length of the image array to a ref. Use a ref so you can pass it to Slideshow3Controls to use in the status control.
+  // !VA Get the length of the image array to a ref. Use a ref so you can pass it to Downslider2Controls to use in the status control. 
   const slideslength = useRef(null);
   // !VA Set the ref to the slides.length + 1 to compensate for 0-based.
   slideslength.current = slides.length - 1
-
 
   const prevSlide= () => {
     // !VA First set lastIndexFlag to false since activeIndex is being incremented here.
@@ -114,7 +112,7 @@ function Slideshow3(props) {
           playSlideshow={playSlideshow }
           pauseSlideshow={pauseSlideshow}
           resetSlideshow={resetSlideshow}
-          slidesLength={slidesLength}
+          slidesLength={slideslength.current}
           activeIndex={activeIndex}
           lastIndexFlag={lastIndexFlag}
           firstIndexFlag={firstIndexFlag}

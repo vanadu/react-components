@@ -30,9 +30,9 @@ function Downslider2Controls({
 
 
   return (
-    <div className='slideshow3-controls'>
+    <div className='downslider2-controls'>
       {/* Show the controls only if a slide is displayed, i.e. not when the base image is displayed. activeIndex has to be greater than 0  */}
-      <p className="slideshow3-status">
+      <p className="downslider2-status">
         { activeIndex  >= 0 &&   `${activeIndex + 1} of ${slideslength.current + 1}`   }
       </p>
       <span 

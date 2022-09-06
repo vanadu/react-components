@@ -1,17 +1,14 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 
 //prettier-ignore
 function Slideshow3Content({ activeIndex, slides, baseslide, play }) {
-
-  const len = slides.length;
-
+// !VA This component the activeIndex, the array of slides to display, the static base slide that lives under the slideshow display and the play POS with either 'playing' or 'paused'
+// !VA Using a local const here instead of passing in the slideslength ref because we already have the slides array in the component
+  // const len = slides.length;
+  // !VA Conditionally applied styles for setting zIndex of baseslide and the slideshow images. If the slideshow is in progress, i.e. playing or paused, then show the slideshow over the baseslide, otherwise move the slideshow behind the baseslide. If the slideshow is being paged with the paging buttons move it above the baseslide
   const styles = {
     playingpaused: {
       zIndex: play === 'playing' || play === 'paused' ? 2 : -1,
-    },
-    prevnext: {
-      zIndex: 2
     }
   };
   
@@ -37,7 +34,6 @@ function Slideshow3Content({ activeIndex, slides, baseslide, play }) {
             className={`slideshow3-slide bringforward ${index === activeIndex ? 'active' : 'inactive'}`}
             // style={ play ? { zIndex: 1 } : { zIndex: -1 }
             style={styles.playingpaused}
-            style={styles.prevnext}
             >
             <div className="slideshow3-slide-image">
               <img className='slideshow3-slide-image' src={slide.urls} alt='' />

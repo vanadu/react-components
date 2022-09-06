@@ -25,12 +25,14 @@
   width: var(--widths);
 }
 
-.slideshow3-slides .active {
+.slideshow3-slide.active {
   display: inline-block;
+  z-index: 2;
 }
 
-.slideshow3-slides .inactive {
+.slideshow3-slide.inactive {
   display: none;
+  z-index: -1;
 }
 
 .slideshow3-slides {
@@ -51,7 +53,7 @@
 }
 
 .slideshow3-slide {
-  z-index: -1;
+  z-index: 2;
 }
 
 .slideshow3-slide-image img {
