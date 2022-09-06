@@ -27,10 +27,12 @@
 
 .downslider2-slide.active {
   display: inline-block;
+  z-index: 2;
 }
 
 .downslider2-slide.inactive {
   display: none;
+  z-index: -1;
 }
 
 .downslider2-slides {
@@ -107,20 +109,12 @@
   cursor: pointer;
 }
 
-.downslider2-control { 
+.downslider2-controls span { 
   display: flex;
   justify-content: center;
   width: 100px;
   font-size: 2rem;
-  border: 1px solid red;
 }
-
-.downslider2-control-disable {
-  pointer-events: none;
-  color: gray;
-}
-
-
 
 .downslider2-status {
    width: 80px;
@@ -135,10 +129,6 @@
   z-index: 1;
 }
 
-
-
-
-
 .downslider2-container:hover .prev,.downslider2-container:hover .next {
   color: black
 }
@@ -150,5 +140,43 @@
   transition: all 0.5s ease-in;
 }
 
+.all-dots {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  top: 85%;
+  justify-content: center;
+  z-index: 200;
+  display: none;
+}
 
+.dot {
+  cursor: pointer;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin: 0px 3px;
+  background-color: transparent;
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  border-radius: 50%;
+  display: inline-block;
+}
 
+.downslider2-container:hover .dot:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* .active-dot {
+  background-color: rgba(255, 255, 255, 0.5);
+} */
+
+.downslider2-container:hover .dot{
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.downslider2-container:hover .active-dot{
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.play-pause {
+  color: black;
+}

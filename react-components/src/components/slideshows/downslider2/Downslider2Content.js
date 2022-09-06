@@ -9,6 +9,9 @@ function Downslider2Content({ activeIndex, slides, baseslide, play }) {
   const styles = {
     playingpaused: {
       zIndex: play === 'playing' || play === 'paused' ? 2 : -1,
+    },
+    prevnext: {
+      zIndex: 2
     }
   };
   
@@ -27,12 +30,12 @@ function Downslider2Content({ activeIndex, slides, baseslide, play }) {
           </div>
         </div>
 
-
+        {/* Conditionally apply z-index when  */}
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`downslider2-slide bringforward ${index === activeIndex ? 'active' : 'inactive'}`}
-            style={styles.playingpaused}
+            className={`downslider2-slide ${index === activeIndex ? 'active' : 'inactive'}`}
+            style={styles.playingpaused, styles.prevnext}
             >
             <div className="downslider2-slide-image">
               <img className='downslider2-slide-image' src={slide.urls} alt='' />

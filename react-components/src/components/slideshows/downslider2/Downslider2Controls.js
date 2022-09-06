@@ -16,43 +16,49 @@ function Downslider2Controls({
   slideslength
 }) {
 
-  // !VA Conditional styles for disabling Prev and Next controls when the last/first index is reached.
-  const styles = {
-    disableNext: {
-      pointerEvents: lastIndexFlag  ? 'none' : 'auto', 
-      color: lastIndexFlag ? 'gray' : null,
-    },
-    disablePrev: {
-      pointerEvents: firstIndexFlag  ? 'none' : 'auto', 
-      color: firstIndexFlag ? 'gray' : null,
-    }
-  };
+  // !VA Conditional styles for disabling Prev and Next controls when the last/first index is reached. This was refactored to use conditional styles, see JSX
+  // const styles = {
+  //   disableNext: {
+  //     pointerEvents: lastIndexFlag  ? 'none' : 'auto', 
+  //     color: lastIndexFlag ? 'gray' : null,
+  //   },
+  //   disablePrev: {
+  //     pointerEvents: firstIndexFlag  ? 'none' : 'auto', 
+  //     color: firstIndexFlag ? 'gray' : null,
+  //   }
+  // };
 
 
+  console.log('Conrols: play :>> ' + play);
   return (
     <div className='downslider2-controls'>
       {/* Show the controls only if a slide is displayed, i.e. not when the base image is displayed. activeIndex has to be greater than 0  */}
       <p className="downslider2-status">
         { activeIndex  >= 0 &&   `${activeIndex + 1} of ${slideslength.current + 1}`   }
       </p>
-      <span 
-        className='prev' 
-        onClick={prevSlide}
-        style={styles.disablePrev}
-        >
-        <FaBackward />
-      </span>
-      <span 
-        className='next' 
-        onClick={nextSlide}
-        style={styles.disableNext}
-        >
-        <FaForward />
-      </span>
-      {/* Toggle display of Play/Pause control based on the play POS */}
+
+          <span 
+            className={`downslider2-control downslider2-control-prev ${play === 'playing' ? 'downslider2-control-disable' : ''} ${firstIndexFlag ? 'downslider2-control-disable' : ''}`} 
+            onClick={prevSlide}
+            // style={styles.disablePrev}
+            >
+            <FaBackward />
+          </span>
+          <span 
+            className={`downslider2-control downslider2-control-next ${play === 'playing' ? 'downslider2-control-disable' : ''} ${lastIndexFlag ? 'downslider2-control-disable' : ''}`} 
+            onClick={nextSlide}
+            // style={styles.disableNext}
+            >
+            <FaForward />
+          </span>
+
+
+
+
+      {/* Toggle display of Play/Pause control based on the play POS. */}
       { play === 'playing'  && (
         <>
-          <span className='pause' onClick={pauseSlideshow}>
+          <span className='downslider2-control downslider2-control-pause' onClick={pauseSlideshow}>
             <FaPause />
           </span>
         </>
@@ -61,13 +67,13 @@ function Downslider2Controls({
       {/* NOTE: Don't forget to enclose multiple conditions in parentheses */}
       { (play === 'paused' || play === null) && (
         <>
-          <span className='play' onClick={playSlideshow}>
+          <span className='downslider2-control downslider2-control-play' onClick={playSlideshow}>
             <FaPlay />
           </span>
         </>
         )
       }
-      <span className='reset' onClick={resetSlideshow}>
+      <span className='downslider2-control downslider2-control-reset' onClick={resetSlideshow}>
         <FaStop />
       </span>
     </div>
